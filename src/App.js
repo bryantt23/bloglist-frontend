@@ -7,13 +7,17 @@ const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [user, setUser] = useState(null);
 
-  let user = null;
-
-  const handleLogin = e => {
+  const handleLogin = async e => {
     e.preventDefault();
-    userService.login(username, password);
-    // console.log('logging in with', username, password);
+    const res = await userService.login(username, password);
+    if (res.error) {
+      console.log(res.error);
+    } else {
+      const { name, username } = res;
+      setUser({ name, username });
+    }
   };
 
   useEffect(() => {

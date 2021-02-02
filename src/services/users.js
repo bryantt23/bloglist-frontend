@@ -1,4 +1,3 @@
-import axios from 'axios';
 const baseUrl = 'http://localhost:3001/api/login';
 //https://jasonwatmore.com/post/2020/02/01/react-fetch-http-post-request-examples
 const login = async (username, password) => {
@@ -8,16 +7,10 @@ const login = async (username, password) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, password })
   };
-  fetch(baseUrl, requestOptions)
-    .then(response => response.json())
-    .then(data => console.log('data', data));
+  const data = await fetch(baseUrl, requestOptions);
+  const res = await data.json();
 
-  console.log('login svc');
-  console.log(username, password);
-  //   const request = await axios.post(baseUrl);
-  //   const data = await request.data;
-  //   return data;
-  // return request.then(response => response.data);
+  return res;
 };
 
 export default { login };
