@@ -6,7 +6,6 @@ const getAll = async () => {
   const request = await axios.get(baseUrl);
   const data = await request.data;
   return data;
-  // return request.then(response => response.data);
 };
 
 function getAuthorizationInfo() {

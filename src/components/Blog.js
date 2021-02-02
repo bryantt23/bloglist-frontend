@@ -23,7 +23,6 @@ const Blog = ({ blog }) => {
 
   return (
     <div style={blogStyle}>
-      {blog.title} {blog.author} {JSON.stringify(blog)}
       <p> Title: {blog.title}</p>
       <p> Url: {blog.url}</p>
       <p>

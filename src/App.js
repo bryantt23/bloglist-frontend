@@ -36,7 +36,8 @@ const App = () => {
     async function fetchData() {
       // You can await here
       const blogs = await blogService.getAll();
-      const blogsArr = Object.entries(blogs).map(obj => obj[1]);
+      let blogsArr = Object.entries(blogs).map(obj => obj[1]);
+      blogsArr.sort((a, b) => b.likes - a.likes);
       setBlogs(blogsArr);
     }
     fetchData();
