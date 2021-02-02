@@ -27,8 +27,9 @@ function AddBlog() {
     if (res.error) {
       showTemporaryMessage(res.error, 'error');
     } else {
-      showTemporaryMessage('Blog has been added', 'success');
+      //TODO maybe later make it render immediately, doesn't work now
       blogService.getAll();
+      showTemporaryMessage('Blog has been added', 'success');
     }
   };
 

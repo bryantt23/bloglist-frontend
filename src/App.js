@@ -9,6 +9,10 @@ const App = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
+  const [formVisible, setFormVisible] = useState(false);
+
+  const hideWhenVisible = { display: formVisible ? 'none' : '' };
+  const showWhenVisible = { display: formVisible ? '' : 'none' };
 
   useEffect(() => {
     if (localStorage.getItem('user')) {
@@ -66,7 +70,17 @@ const App = () => {
       {blogs.map(blog => (
         <Blog key={blog.id} blog={blog} />
       ))}
-      <AddBlog />
+
+      <div style={showWhenVisible}>
+        <AddBlog />
+        <button onClick={() => setFormVisible(false)}>
+          cancel adding new note
+        </button>
+      </div>
+      <div style={hideWhenVisible}>
+        {' '}
+        <button onClick={() => setFormVisible(true)}>add new note</button>
+      </div>
     </div>
   );
 };
