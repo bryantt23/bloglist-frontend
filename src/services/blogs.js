@@ -20,10 +20,10 @@ const addBlog = async (title, author, url) => {
     },
     body: JSON.stringify({ title, author, url })
   };
-  const data = await fetch(baseUrl, requestOptions);
-  const res = await data.json();
+  const response = await fetch(baseUrl, requestOptions);
+  const data = await response.json();
 
-  return res;
+  return data;
 };
 
 export default { getAll, addBlog };

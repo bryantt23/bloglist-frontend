@@ -1,19 +1,40 @@
 import React, { useState } from 'react';
 import blogService from '../services/blogs';
 
+import Notification from './Notification';
+
 function AddBlog() {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [url, setUrl] = useState('');
 
-  const handleSubmit = e => {
+  //   https://github.com/bryantt23/phonebook/blob/master/src/PersonForm.js
+  const [message, setMessage] = useState('');
+  const [classStyle, setClassStyle] = useState('');
+  const showTemporaryMessage = (message, style) => {
+    setMessage(message);
+    setClassStyle(style);
+
+    setTimeout(() => {
+      setMessage(null);
+    }, 5000);
+  };
+
+  const handleSubmit = async e => {
     e.preventDefault();
-    console.log('sumbit');
-    blogService.addBlog(title, author, url);
+    const res = await blogService.addBlog(title, author, url);
+    console.log('res', res);
+    if (res.error) {
+      showTemporaryMessage(res.error, 'error');
+    } else {
+      showTemporaryMessage('Blog has been added', 'success');
+      blogService.getAll();
+    }
   };
 
   return (
     <div>
+      <Notification message={message} classStyle={classStyle} />
       <h1>Create new</h1>
       <form onSubmit={handleSubmit}>
         <label>
