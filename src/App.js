@@ -27,8 +27,8 @@ const App = () => {
       console.log(res.error);
     } else {
       const { name, username, token } = res;
-      setUser({ name, username, token });
       localStorage.setItem('user', JSON.stringify({ name, username, token }));
+      setUser({ name, username, token });
     }
   };
 
@@ -65,7 +65,7 @@ const App = () => {
     <div>
       <h2>blogs</h2>
       <h3>
-        {`${user.name} is logged in `}
+        {`Username ${user.username} is logged in `}
         <button onClick={logout}>logout</button>
       </h3>
       {blogs.map(blog => (

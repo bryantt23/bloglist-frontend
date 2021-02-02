@@ -21,8 +21,38 @@ const Blog = ({ blog }) => {
     );
   }
 
+  let userName = getUserInfo().username;
+  console.log('userName', userName);
+
+  function getUserInfo() {
+    return JSON.parse(localStorage.getItem('user'));
+  }
+
+  function checkIfUserBlog() {
+    if (blog && blog.user && blog.user.username) {
+      // console.log(blog.user._id);
+      if (blog.user.username === userName) {
+        console.log('match', blog);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  const isUserBlog = checkIfUserBlog();
+
+  function deleteBlog(blogId) {
+    if (window.confirm('Delete this blog?')) {
+      console.log('delete this');
+      blogService.deleteBlog(blogId);
+    } else {
+      console.log('do not delete this');
+    }
+  }
+
   return (
     <div style={blogStyle}>
+      {blog.title} {blog.author} {JSON.stringify(blog)}
       <p> Title: {blog.title}</p>
       <p> Url: {blog.url}</p>
       <p>
@@ -38,6 +68,16 @@ const Blog = ({ blog }) => {
       </p>
       <p> Author: {blog.author}</p>
       <button onClick={() => setExpanded(false)}>hide</button>
+      {isUserBlog && (
+        <button
+          onClick={() => {
+            deleteBlog(blog.id);
+            // console.log('delete this');
+          }}
+        >
+          delete
+        </button>
+      )}
     </div>
   );
 };

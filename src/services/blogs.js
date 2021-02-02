@@ -49,4 +49,20 @@ const addLike = async (id, likes) => {
   return data;
 };
 
-export default { getAll, addBlog, addLike };
+const deleteBlog = async id => {
+  console.log(id, 'id');
+  const authorizationInfo = getAuthorizationInfo();
+  const requestOptions = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${authorizationInfo}`
+    }
+  };
+  const response = await fetch(baseUrl + id, requestOptions);
+  const data = await response.json();
+
+  return data;
+};
+
+export default { getAll, addBlog, addLike, deleteBlog };
