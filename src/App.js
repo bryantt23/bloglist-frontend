@@ -9,6 +9,12 @@ const App = () => {
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
 
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
+      setUser(JSON.parse(localStorage.getItem('user')));
+    }
+  }, []);
+
   const handleLogin = async e => {
     e.preventDefault();
     const res = await userService.login(username, password);
@@ -17,6 +23,7 @@ const App = () => {
     } else {
       const { name, username } = res;
       setUser({ name, username });
+      localStorage.setItem('user', JSON.stringify({ name, username }));
     }
   };
 
@@ -43,9 +50,18 @@ const App = () => {
     );
   }
 
+  function logout() {
+    setUser(null);
+    localStorage.clear();
+  }
+
   return (
     <div>
       <h2>blogs</h2>
+      <h3>
+        {`${user.name} is logged in `}
+        <button onClick={logout}>logout</button>
+      </h3>
       {blogs.map(blog => (
         <Blog key={blog.id} blog={blog} />
       ))}
