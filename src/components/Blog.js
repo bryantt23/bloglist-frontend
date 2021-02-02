@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import blogService from '../services/blogs';
 
 const Blog = ({ blog }) => {
   const blogStyle = {
@@ -9,12 +10,12 @@ const Blog = ({ blog }) => {
     marginBottom: 5
   };
 
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
 
   if (!expanded) {
     return (
       <div style={blogStyle}>
-        Title: {blog.title}{' '}
+        Title: {blog.title}
         <button onClick={() => setExpanded(true)}>view</button>
       </div>
     );
@@ -22,13 +23,19 @@ const Blog = ({ blog }) => {
 
   return (
     <div style={blogStyle}>
-      {blog.title} {blog.author}
+      {blog.title} {blog.author} {JSON.stringify(blog)}
       <p> Title: {blog.title}</p>
       <p> Url: {blog.url}</p>
       <p>
-        {' '}
         Likes: {blog.likes}
-        <button>like</button>
+        <button
+          onClick={() => {
+            blogService.addLike(blog.id, blog.likes);
+            console.log(blog.id);
+          }}
+        >
+          like
+        </button>
       </p>
       <p> Author: {blog.author}</p>
       <button onClick={() => setExpanded(false)}>hide</button>
