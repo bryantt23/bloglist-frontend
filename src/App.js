@@ -22,9 +22,9 @@ const App = () => {
     if (res.error) {
       console.log(res.error);
     } else {
-      const { name, username } = res;
-      setUser({ name, username });
-      localStorage.setItem('user', JSON.stringify({ name, username }));
+      const { name, username, token } = res;
+      setUser({ name, username, token });
+      localStorage.setItem('user', JSON.stringify({ name, username, token }));
     }
   };
 

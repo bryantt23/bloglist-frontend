@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import blogService from '../services/blogs';
 
 function AddBlog() {
   const [title, setTitle] = useState('');
@@ -8,6 +9,7 @@ function AddBlog() {
   const handleSubmit = e => {
     e.preventDefault();
     console.log('sumbit');
+    blogService.addBlog(title, author, url);
   };
 
   return (
@@ -45,7 +47,6 @@ function AddBlog() {
           />
         </label>
         <input type='submit' value='Submit' />
-        {/* <button onClick=>Submit</button> */}
       </form>
     </div>
   );
