@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import blogService from '../services/blogs';
+import PropTypes from 'prop-types';
 
 const Blog = ({ blog }) => {
   const blogStyle = {
@@ -81,4 +82,9 @@ const Blog = ({ blog }) => {
     </div>
   );
 };
+
+Blog.propTypes = {
+  blog: PropTypes.object.isRequired
+};
+
 export default Blog;
